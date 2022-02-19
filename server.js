@@ -3,6 +3,8 @@ const helmet =  require('helmet');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const forumCommentsRouter = require('./routes/forumComments')
+
 const dontenv = require('dotenv').config();
 const app = express();
 
@@ -17,6 +19,8 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use(morgan("dev"));
 app.use(helmet());
+app.use(express.json());
+app.use('/api/comments',forumCommentsRouter);
 
 app.get('/',(req,res)=>{
     res.send({msg:'Hello From The Server'});

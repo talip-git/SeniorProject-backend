@@ -8,13 +8,12 @@ const NewsCommentsSchema = mongoose.Schema({
         type:String,
         required:true,
     },
+    parentCommentId:{
+        type:String
+    },
     content:{
         type:String,
         required:true,
     },
-    subComments:{
-        type:Array,
-        default:[NewsCommentsSchema]
-    }
 },{timestamps:true});
 module.exports = mongoose.model("NewsComment",NewsCommentsSchema);

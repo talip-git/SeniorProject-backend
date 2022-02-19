@@ -16,10 +16,6 @@ const ForumEntriesSchema = mongoose.Schema({
     img:{
         type:String,
     },
-    comments:{
-        type:Array,
-        default:[]
-    }
 },{timestamps:true});
 
 module.exports=mongoose.model('ForumEntry',ForumEntriesSchema);

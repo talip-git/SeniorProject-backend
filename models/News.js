@@ -13,10 +13,6 @@ const NewsSchema = mongoose.Schema({
         type:String,
         required:true,
     },
-    comments:{
-        type:Array,
-        default:[]
-    }
 },{timestamps:true})
 
 module.exports= mongoose.model('News',NewsSchema);
