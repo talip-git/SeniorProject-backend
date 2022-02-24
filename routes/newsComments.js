@@ -1,4 +1,5 @@
 const NewsComments = require('../models/NewsComments');
+const User = require("../models/User");
 const express = require("express");
 const router = express.Router();
 
@@ -22,13 +23,13 @@ router.get('/news/:newsId',async (req,res)=>{
 });
 
 //Post the new comment 
-router.post('/news/:newsId/:userId',(req,res)=>{
+router.post('/news/:newsId/:userId',async (req,res)=>{
     try {
         if(req.body.newsId === req.params.newsId && 
             req.body.userId === req.params.userId){
 
             let newComment;
-            
+
             if(req.body.parentId){
                 newComment = new NewsComments({
                     newsId:req.body.newsId,
@@ -37,7 +38,6 @@ router.post('/news/:newsId/:userId',(req,res)=>{
                     content:req.body.content
                 });
                 await newComment.save();
-                
             }
             else{
                 newComment = new NewsComments({
@@ -58,8 +58,25 @@ router.post('/news/:newsId/:userId',(req,res)=>{
 });
 
 //Delete news comment
-router.delete('/news/:newsId:/commentId',(req,res)=>{
-
+router.delete('/news/:newsId/:commentId',async(req,res)=>{
+    try {
+        if(req.body.newsId === req.params.newsId && req.body.commentId === req.params.commentId){
+             User.findById(req.body.userId)
+            .then((user)=>{
+                if(user){
+                    console.log(user);
+                }
+                else{
+                    return res.status(401).json("Unauthorized!");
+                }
+            });
+        }
+        else{
+            return res.status(401).json("Unauthorized!");
+        }
+    } catch (error) {
+        return res.status(500).send({msg:"server error!"});
+    }
 });
 
 module.exports = router;

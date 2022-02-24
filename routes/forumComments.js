@@ -24,8 +24,36 @@ router.get('/forum/:forumId/',async(req,res)=>{
 });
 
 //Post forum comment
-router.post('/forum/:forumId:/commentId',(req,res)=>{
-
+router.post('/forum/:forumId/:userId',async (req,res)=>{
+    try {
+        if(req.body.forumId === req.params.forumId && 
+            req.body.userId === req.params.userId){
+            if(req.body.parentId){
+                const newcomment = new ForumComments({
+                    forumId:req.body.forumId,
+                    userId : req.body.userId,
+                    parentCommentId:req.body.parentCommentId,
+                    content:req.body.content
+                });
+                await newcomment.save();
+                return res.status(200).json(newcomment);
+            }
+            else{
+                const newcomment = new ForumComments({
+                    forumId:req.body.forumId,
+                    userId : req.body.userId,
+                    content:req.body.content
+                })
+                await newcomment.save();
+                return res.status(200).json(newcomment);
+            }
+        }
+        else{
+            return res.status(401).json("Unathroized!")
+        }
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 });
 
 //Delete forum comment
