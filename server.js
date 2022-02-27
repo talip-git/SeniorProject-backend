@@ -20,21 +20,19 @@ mongoose.connect(process.env.MONGO_URL)
     console.log("an error happened");
 });
 
-
+//Cors
 const corsOptions = {
     origin:"http://localhost:3000",
     optionSuccessStatus:200
 }
 
+//Middleware
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(helmet())
 app.use(morgan("dev"))
 app.use('/api/news',newsRouter)
 
-
-let port = process.env.PORT
-
-app.listen(port,()=>{
+app.listen(process.env.PORT,()=>{
     console.log('Server is runnig on port '+ port +'...')
 })
