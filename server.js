@@ -2,10 +2,13 @@ const express = require('express');
 const helmet =  require('helmet');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-
-const forumCommentsRouter = require('./routes/forumComments')
-
+const cors = require('cors');
 const dontenv = require('dotenv').config();
+
+//Routes
+const forumCommentsRouter = require('./routes/forumComments')
+const newsRouter  = require('./routes/news')
+
 const app = express();
 
 //Connect To The DB
@@ -17,15 +20,21 @@ mongoose.connect(process.env.MONGO_URL)
     console.log("an error happened");
 });
 
-app.use(morgan("dev"));
-app.use(helmet());
-app.use(express.json());
-app.use('/api/comments',forumCommentsRouter);
 
-app.get('/',(req,res)=>{
-    res.send({msg:'Hello From The Server'});
-})
+const corsOptions = {
+    origin:"http://localhost:3000",
+    optionSuccessStatus:200
+}
 
-app.listen(process.env.PORT,()=>{
-    console.log("Server is listening on port 5000");
+app.use(cors(corsOptions))
+app.use(express.json())
+app.use(helmet())
+app.use(morgan("dev"))
+app.use('/api/news',newsRouter)
+
+
+let port = process.env.PORT
+
+app.listen(port,()=>{
+    console.log('Server is runnig on port '+ port +'...')
 })
