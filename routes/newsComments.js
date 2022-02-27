@@ -58,13 +58,13 @@ router.post('/:newsId/:userId',async (req,res)=>{
 });
 
 //Delete news comment
-router.delete('/:newsId/:commentId',async(req,res)=>{
+router.delete('/:newsId/:commentId',(req,res)=>{
     try {
         if(req.body.newsId === req.params.newsId && req.body.commentId === req.params.commentId){
              User.findById(req.body.userId)
             .then((user)=>{
                 if(user){
-                    console.log(user);
+                    return res.status(200).json(user);
                 }
                 else{
                     return res.status(401).json("Unauthorized!");

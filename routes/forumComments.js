@@ -1,6 +1,5 @@
 const express = require('express');
 const ForumComments = require('../models/ForumComments');
-
 const router = express.Router();
 
 //Get the all the Forum comments

@@ -10,6 +10,7 @@ const forumEntriesRouter = require("./routes/forumEntries");
 const forumCommentsRouter = require('./routes/forumComments')
 const newsRouter  = require('./routes/news')
 const newsCommentsRouter = require("./routes/newsComments");
+const authRouter = require('./routes/auth');
 const app = express();
 
 //Connect To The DB
@@ -32,7 +33,8 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(helmet())
 app.use(morgan("dev"))
-app.use('/api/news',newsRouter)
+app.use('/api/auth',authRouter);
+app.use('/api/news',newsRouter);
 app.use('/api/forum',forumEntriesRouter);
 app.use('/api/comments/news',newsCommentsRouter);
 app.use('/api/comments/forum',forumCommentsRouter);
