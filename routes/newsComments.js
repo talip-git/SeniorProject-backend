@@ -3,7 +3,7 @@ const User = require("../models/User");
 const express = require("express");
 const router = express.Router();
 
-router.get('/news/:newsId',async (req,res)=>{
+router.get('/:newsId',async (req,res)=>{
     try {
         if(req.body.newsId === req.params.newsId){
             const comment = await NewsComments.find({
@@ -23,7 +23,7 @@ router.get('/news/:newsId',async (req,res)=>{
 });
 
 //Post the new comment 
-router.post('/news/:newsId/:userId',async (req,res)=>{
+router.post('/:newsId/:userId',async (req,res)=>{
     try {
         if(req.body.newsId === req.params.newsId && 
             req.body.userId === req.params.userId){
@@ -58,7 +58,7 @@ router.post('/news/:newsId/:userId',async (req,res)=>{
 });
 
 //Delete news comment
-router.delete('/news/:newsId/:commentId',async(req,res)=>{
+router.delete('/:newsId/:commentId',async(req,res)=>{
     try {
         if(req.body.newsId === req.params.newsId && req.body.commentId === req.params.commentId){
              User.findById(req.body.userId)

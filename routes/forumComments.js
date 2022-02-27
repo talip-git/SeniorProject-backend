@@ -4,7 +4,7 @@ const ForumComments = require('../models/ForumComments');
 const router = express.Router();
 
 //Get the all the Forum comments
-router.get('/forum/:forumId/',async(req,res)=>{
+router.get('/:forumId/',async(req,res)=>{
     try {
         if(req.body.forumId === req.params.forumId){
             const comment = await ForumComments.find({
@@ -24,7 +24,7 @@ router.get('/forum/:forumId/',async(req,res)=>{
 });
 
 //Post forum comment
-router.post('/forum/:forumId/:userId',async (req,res)=>{
+router.post('/:forumId/:userId',async (req,res)=>{
     try {
         if(req.body.forumId === req.params.forumId && 
             req.body.userId === req.params.userId){
@@ -57,7 +57,7 @@ router.post('/forum/:forumId/:userId',async (req,res)=>{
 });
 
 //Delete forum comment
-router.delete('/forum/:forumId:/commentId',(req,res)=>{
+router.delete('/:forumId:/commentId',(req,res)=>{
 
 });
 

@@ -33,6 +33,9 @@ app.use(express.json())
 app.use(helmet())
 app.use(morgan("dev"))
 app.use('/api/news',newsRouter)
+app.use('/api/forum',forumEntriesRouter);
+app.use('/api/comments/news',newsCommentsRouter);
+app.use('/api/comments/forum',forumCommentsRouter);
 
 app.listen(process.env.PORT,()=>{
     console.log('Server is runnig on port '+ port +'...')
