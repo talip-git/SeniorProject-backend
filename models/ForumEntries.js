@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const ForumEntriesSchema = mongoose.Schema({
     userId:{
         type:String,
-        required = true
+        required:true
     },
     title:{
         type:String,

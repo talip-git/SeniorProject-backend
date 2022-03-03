@@ -3,16 +3,16 @@ const ForumComments = require('../models/ForumComments');
 const router = express.Router();
 
 //Get the all the Forum comments
-router.get('/:forumId/',async(req,res)=>{
+router.get('/:forumId',async(req,res)=>{
     try {
         if(req.body.forumId === req.params.forumId){
-            const comment = await ForumComments.find({
+            const comments = await ForumComments.find({
                 forumId:req.params.newsId,
             });
-            if(!comment){
+            if(!comments){
                 return res.status(404).json("Not Found");
             }
-            return res.status(200).json(comment);
+            return res.status(200).json(comments);
         }
         else{
             return res.status(400).json({msg:"Unauthorized"});
@@ -27,7 +27,7 @@ router.post('/:forumId/:userId',async (req,res)=>{
     try {
         if(req.body.forumId === req.params.forumId && 
             req.body.userId === req.params.userId){
-            if(req.body.parentId){
+            if(req.body.parentCommentId){
                 const newcomment = new ForumComments({
                     forumId:req.body.forumId,
                     userId : req.body.userId,

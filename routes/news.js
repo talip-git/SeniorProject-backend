@@ -14,6 +14,7 @@ router.get('/getNews',async (req,res)=>{
 router.post('/addNews',async(req,res)=>{
     try { 
         const newNews = new News({
+            userId:req.body.userId,
             title:req.body.title,
             content:req.body.content,
             img:req.body.img,

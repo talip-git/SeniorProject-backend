@@ -40,5 +40,5 @@ app.use('/api/comments/news',newsCommentsRouter);
 app.use('/api/comments/forum',forumCommentsRouter);
 
 app.listen(process.env.PORT,()=>{
-    console.log('Server is runnig on port '+ port +'...')
+    console.log('Server is runnig on port '+ process.env.PORT+'...')
 })

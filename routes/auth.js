@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 
-router.get('/:userId',async(req,res)=>{
+router.get('/',async(req,res)=>{
     try {
         const user = await User.findById(req.body.userId);
         if(!user){

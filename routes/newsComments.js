@@ -6,13 +6,13 @@ const router = express.Router();
 router.get('/:newsId',async (req,res)=>{
     try {
         if(req.body.newsId === req.params.newsId){
-            const comment = await NewsComments.find({
+            const comments = await NewsComments.find({
                 newsId:req.params.newsId,
             });
-            if(!comment){
+            if(!comments){
                 return res.status(404).json("Not Found");
             }
-            return res.status(200).json(comment);
+            return res.status(200).json(comments);
         }
         else{
             return res.status(401).json({msg:"Unauthorized"});
@@ -30,16 +30,18 @@ router.post('/:newsId/:userId',async (req,res)=>{
 
             let newComment;
 
-            if(req.body.parentId){
+            if(req.body.parentCommentId){
+                console.log("parentComment is present!");
                 newComment = new NewsComments({
                     newsId:req.body.newsId,
                     userId:req.body.userId,
-                    parentCommentId:req.body.parentId,
+                    parentCommentId:req.body.parentCommentId,
                     content:req.body.content
                 });
                 await newComment.save();
             }
             else{
+                console.log("parentComment is NOT present!");
                 newComment = new NewsComments({
                     newsId:req.body.newsId,
                     userId:req.body.userId,

@@ -23,7 +23,7 @@ router.get("/:forumId",(req,res)=>{
 });
 
 //Post new Forum Entry
-router.post("/:userId",(req,res)=>{
+router.post("/:userId",async(req,res)=>{
     try {
         if(req.body.userId === req.params.userId){
             const newEntry = new ForumEntry({
