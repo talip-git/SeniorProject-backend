@@ -3,7 +3,7 @@ const ForumEntry = require('../models/ForumEntries');
 const router = express.Router();
 
 //Get The Entry
-router.get("/:forumId",(req,res)=>{
+router.get("/getForum/:forumId",(req,res)=>{
     try {
         if(req.body.forumId === req.params.forumId){
             ForumEntry.findById(req.body.forumId)
@@ -23,7 +23,7 @@ router.get("/:forumId",(req,res)=>{
 });
 
 //Post new Forum Entry
-router.post("/:userId",async(req,res)=>{
+router.post("/addForum/:userId",async(req,res)=>{
     try {
         if(req.body.userId === req.params.userId){
             const newEntry = new ForumEntry({

@@ -11,6 +11,8 @@ const forumCommentsRouter = require('./routes/forumComments')
 const newsRouter  = require('./routes/news')
 const newsCommentsRouter = require("./routes/newsComments");
 const authRouter = require('./routes/auth');
+const conversationRouter = require('./routes/conversations');
+const messageRouter = require('./routes/messages');
 const app = express();
 
 //Connect To The DB
@@ -36,6 +38,8 @@ app.use(morgan("dev"))
 app.use('/api/auth',authRouter);
 app.use('/api/news',newsRouter);
 app.use('/api/forum',forumEntriesRouter);
+app.use('/api/conversations',conversationRouter);
+app.use('/api/messages',messageRouter);
 app.use('/api/comments/news',newsCommentsRouter);
 app.use('/api/comments/forum',forumCommentsRouter);
 
