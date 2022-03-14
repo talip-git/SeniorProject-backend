@@ -2,6 +2,19 @@ const express = require('express')
 const ForumEntry = require('../models/ForumEntries');
 const router = express.Router();
 
+router.get('/getForum',async (req,res)=>{
+    try {
+        const entries = await ForumEntry.find({})
+        if(!entries){
+            return res.status(404).json("Not Found!")
+        }
+        return res.status(200).json(entries)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
+
+
 //Get The Entry
 router.get("/getForum/:forumId",(req,res)=>{
     try {
