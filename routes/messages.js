@@ -16,17 +16,15 @@ router.post('/',async (req,res)=>{
     }
 })
 router.get('/:conversationId',async(req,res)=>{
-    try {
-        if(req.body.conversationId === req.params.conversationId){            
-            const messages = await Message.find({
-                conversationId:req.body.conversationId
-            });
-            if(!messages){
-                return res.status(404).json("Not found!")
-            }
-            return res.status(200).json(messages);
+    try { 
+        const messages = await Message.find({
+            conversationId:req.params.conversationId
+        });
+        if(!messages){
+            return res.status(404).json("Not found!")
         }
-        return res.status(401).json("Unauthorized!");
+        return res.status(200).json(messages);
+
     } catch (error) {
         return res.status(500).json(error)
     }

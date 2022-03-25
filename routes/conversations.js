@@ -13,18 +13,26 @@ router.post('/',async (req,res)=>{
         return res.status(500).json(error)
     }
 });
-router.get('/:conversationId',async(req,res)=>{
+router.get("/:userId", async (req, res) => {
     try {
-        if(req.body.conversationId === req.params.conversationId){
-            const conversation = await Conversation.findById(req.body.conversationId);
-            if(!conversation){
-                return res.status(404).json("Not found!");
-            }
-            return res.status(200).json(conversation);
-        }
-        return res.status(401).json("Unauthorized!");
-    } catch (error) {
-        return res.status(500).json(error);
+      const conversation = await Conversation.find({
+        members: { $in: [req.params.userId] },
+      });
+      res.status(200).json(conversation);
+    } catch (err) {
+      res.status(500).json(err);
     }
-})
+  });
+  
+  
+  router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
+    try {
+      const conversation = await Conversation.findOne({
+        members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+      });
+      res.status(200).json(conversation)
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 module.exports = router;

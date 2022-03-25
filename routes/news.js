@@ -26,5 +26,16 @@ router.post('/addNews',async(req,res)=>{
         return res.status(500).send(error)
     }    
 })
-
+router.get('/induvidualNews/:title',async (req,res)=>{
+    try {
+            const news = await News.findOne({
+                title:req.params.title,
+            })
+            return res.status(200).send(news)
+    
+       
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
 module.exports = router;

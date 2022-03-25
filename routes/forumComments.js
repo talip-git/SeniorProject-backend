@@ -2,8 +2,7 @@ const express = require('express');
 const ForumComments = require('../models/ForumComments');
 const router = express.Router();
 
-//Get the all the Forum comments
-router.get('/:forumId',async(req,res)=>{
+router.get('/getAll/:forumId',async(req,res)=>{
     try {
         const comments = await ForumComments.find({
             forumId:req.params.forumId,
@@ -18,6 +17,37 @@ router.get('/:forumId',async(req,res)=>{
     }
 });
 
+//Get the all the ParentComments
+router.get('/:forumId',async(req,res)=>{
+    try {
+        const comments = await ForumComments.find({
+            forumId:req.params.forumId,
+            parentCommentId:{$exists:false,$ne:true}
+        });
+        if(!comments){
+            return res.status(404).json("Not Found");
+        }
+        return res.status(200).json(comments);
+         
+    } catch (error) {
+        return res.status(500).json("Server Error!");
+    }
+});
+
+//Get the childComments 
+router.get('/:forumId/:parentCommentId',async(req,res)=>{
+    try {
+        const comments = await ForumComments.find({
+            parentCommentId:req.params.parentCommentId
+        })
+        if(!comments){
+            return res.status(404).json("Not Found!")
+        }
+        return res.status(200).json(comments);
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
 //Post forum comment
 router.post('/:forumId/:userId',async (req,res)=>{
     try {

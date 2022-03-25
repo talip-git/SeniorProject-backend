@@ -29,7 +29,10 @@ router.post('/register',async(req,res)=>{
 })
 router.post('/login',async(req,res)=>{
     try {
-        const user = await User.findById(req.body.userId);
+        const user = await User.findOne({
+            email:req.body.email,
+            password:req.body.password
+        })
         if(!user){
             return res.status(404).json("User not found!");
         }
