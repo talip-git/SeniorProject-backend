@@ -1,4 +1,5 @@
 const express = require('express');
+const {createToken} = require('../Security/crypto');
 const User = require('../models/User');
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.post('/register',async(req,res)=>{
             password:req.body.password
         })
         await user.save();
-        return res.status(200).json(user);
+        return res.status(200).json(user.username);
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -37,7 +38,9 @@ router.post('/login',async(req,res)=>{
             return res.status(404).json("User not found!");
         }
         if(user.password === req.body.password){
-            return res.status(200).json(user);
+            const auth = createToken(user);
+            const {_id,username} = user;
+            return res.status(200).json({_id,username,auth});
         }
         return res.status(401).json("Unauthorized!");
     } catch (error) {

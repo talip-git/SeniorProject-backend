@@ -1,7 +1,7 @@
 const express = require('express')
 const ForumEntry = require('../models/ForumEntries');
 const router = express.Router();
-
+const verify = require('../utils/verify');
 router.get('/getForum',async (req,res)=>{
     try {
         const entries = await ForumEntry.find({})
@@ -31,9 +31,9 @@ router.get("/getForum/:forumId",(req,res)=>{
 });
 
 //Post new Forum Entry
-router.post("/addForum/:userId",async(req,res)=>{
+router.post("/addForum/:userId",verify,async(req,res)=>{
     try {
-        if(req.body.userId === req.params.userId){
+        if(req.body.user){
             const newEntry = new ForumEntry({
                 userId:req.body.userId,
                 title:req.body.title,

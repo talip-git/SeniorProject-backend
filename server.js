@@ -43,6 +43,25 @@ app.use('/api/messages',messageRouter);
 app.use('/api/comments/news',newsCommentsRouter);
 app.use('/api/comments/forum',forumCommentsRouter);
 
+/**
+ * Token Test
+ * 
+ */
+// app.post("/createToken",(req,res)=>{
+//     const encryptedData = createToken(req.body.user);
+//     res.setHeader("Set-Cookie","auth="+encryptedData)
+//     return res.status(200).json(encryptedData);
+// })
+// app.post("/verifyToken",async (req,res)=>{
+//     const token = req.headers["cookie"].split("=")[1];
+//     const decUser = JSON.parse(decryptToken(token));
+//     const user = await User.findById(decUser._id);
+//     if(user){
+//         return res.status(200).send(user);
+//     }
+//     return res.status(403).json("Unauthorized!");
+// })
+
 app.listen(process.env.PORT,()=>{
     console.log('Server is runnig on port '+ process.env.PORT+'...')
 })
