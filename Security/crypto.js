@@ -4,7 +4,7 @@ const initilization_vector = crypto.randomBytes(16);
 const secretKey = "s6v9y/B?E(H+MbQeThWmZq4t7w!z%C&F";
 const algorithm = "aes-256-cbc"
 
-const createToken = (user_credentials)=>{
+const createToken = (user_credentials)=>{ 
     const user = JSON.stringify(user_credentials);
     const cipher = crypto.createCipheriv(algorithm,secretKey,initilization_vector);
     let token = cipher.update(user,"utf-8","hex");

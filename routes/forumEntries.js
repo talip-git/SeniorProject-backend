@@ -1,7 +1,7 @@
 const express = require('express')
 const ForumEntry = require('../models/ForumEntries');
 const router = express.Router();
-const verify = require('../utils/verify');
+const verify = require('../middlewares/verify');
 router.get('/getForum',async (req,res)=>{
     try {
         const entries = await ForumEntry.find({})

@@ -1,6 +1,6 @@
 const express = require('express');
 const ForumComments = require('../models/ForumComments');
-const verfiy = require('../utils/verify');
+const verfiy = require('../middlewares/verify');
 const router = express.Router();
 
 router.get('/getAll/:forumId',async(req,res)=>{
