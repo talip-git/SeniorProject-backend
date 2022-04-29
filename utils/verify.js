@@ -1,4 +1,4 @@
-const {decryptToken} = require('../Security/crypto');
+const {decryptToken} = require('../security/crypto');
 const User = require('../models/User')
 const verfiy = async (req,res,next)=>{
     try {

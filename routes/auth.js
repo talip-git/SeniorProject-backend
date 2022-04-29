@@ -1,5 +1,5 @@
 const express = require('express');
-const {createToken} = require('../Security/crypto');
+const {createToken} = require('../security/crypto');
 const User = require('../models/User');
 const router = express.Router();
 
