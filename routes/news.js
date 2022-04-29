@@ -20,7 +20,7 @@ router.post('/addNews',async(req,res)=>{
             img:req.body.img,
         })
         await newNews.save()
-
+ 
         return res.status(200).json('New news added succesfully!')
     } catch (error) {
         return res.status(500).send(error)
