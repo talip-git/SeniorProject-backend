@@ -36,6 +36,7 @@ router.post("/addForum/:userId",verify,async(req,res)=>{
         if(req.body.user){
             const newEntry = new ForumEntry({
                 userId:req.body.userId,
+                username:req.body.username,
                 title:req.body.title,
                 content:req.body.content,
                 img:req.body.img
