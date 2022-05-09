@@ -19,7 +19,9 @@ const app = express();
 
 //Connect To The DB
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(
+    "mongodb+srv://sinoposta:12345@cluster0.gjxb8.mongodb.net/PredatorDatabase?retryWrites=true&w=majority"
+  )
   .then(() => {
     initial();
     console.log("Connected to the db!");
@@ -85,6 +87,6 @@ function initial() {
   });
 }
 
-app.listen(process.env.PORT, () => {
-  console.log("Server is runnig on port " + process.env.PORT + "...");
+app.listen(5000, () => {
+  console.log("Server is runnig on port " + 5000 + "...");
 });
