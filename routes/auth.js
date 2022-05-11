@@ -117,10 +117,6 @@ router.post("/login", async (req, res) => {
         .send({
           id: user._id,
           username: user.username,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
           accessToken: token,
         });
     }
