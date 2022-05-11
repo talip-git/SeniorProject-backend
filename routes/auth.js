@@ -89,7 +89,7 @@ router.post("/register", checkDuplicate, async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({
-      email: req.body.email,
+      username: req.body.username,
     });
     // var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     // if (!passwordIsValid) {
@@ -108,15 +108,21 @@ router.post("/login", async (req, res) => {
       });
       console.log(token);
       user.accessToken = token;
-      return res.status(200).json({
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-        accessToken: token,
-      });
+      return res
+        .header(
+          "Access-Control-Allow-Headers",
+          "x-access-token, Origin, Content-Type, Accept"
+        )
+        .status(200)
+        .send({
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+          accessToken: token,
+        });
     }
     return res.status(401).json("Unauthorized!");
   } catch (error) {
