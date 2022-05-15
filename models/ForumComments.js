@@ -8,6 +8,10 @@ const ForumCommentsSchema = mongoose.Schema({
         type:String,
         required:true,
     },
+    userName:{
+        type:String,
+        required:true
+    },
     parentCommentId:{
         type:String
     },

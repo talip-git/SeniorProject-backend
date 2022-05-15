@@ -13,6 +13,7 @@ const newsCommentsRouter = require("./routes/newsComments");
 const authRouter = require('./routes/auth');
 const conversationRouter = require('./routes/conversations');
 const messageRouter = require('./routes/messages');
+const userRouter = require('./routes/users')
 const app = express();
 
 //Connect To The DB
@@ -42,7 +43,7 @@ app.use('/api/conversations',conversationRouter);
 app.use('/api/messages',messageRouter);
 app.use('/api/comments/news',newsCommentsRouter);
 app.use('/api/comments/forum',forumCommentsRouter);
-
+app.use('/api/users',userRouter)
 /**
  * Token Test
  * 

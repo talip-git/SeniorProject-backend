@@ -57,6 +57,7 @@ router.post('/:forumId/:userId',verfiy,async (req,res)=>{
                 const newcomment = new ForumComments({
                     forumId:req.body.forumId,
                     userId : req.body.userId,
+                    userName:req.body.username,
                     parentCommentId:req.body.parentCommentId,
                     content:req.body.content
                 });
@@ -67,6 +68,7 @@ router.post('/:forumId/:userId',verfiy,async (req,res)=>{
                 const newcomment = new ForumComments({
                     forumId:req.body.forumId,
                     userId :req.body.userId,
+                    userName:req.body.username,
                     content:req.body.content
                 })
                 await newcomment.save();
