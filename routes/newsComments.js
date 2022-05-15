@@ -1,32 +1,27 @@
 const NewsComments = require('../models/NewsComments');
 const User = require("../models/User");
 const express = require("express");
+const verfiy = require('../middlewares/verify');
 const router = express.Router();
 
 router.get('/:newsId',async (req,res)=>{
     try {
-        if(req.body.newsId === req.params.newsId){
-            const comments = await NewsComments.find({
-                newsId:req.params.newsId,
-            });
-            if(!comments){
-                return res.status(404).json("Not Found");
-            }
-            return res.status(200).json(comments);
+        const comments = await NewsComments.find({
+            newsId:req.params.newsId,
+        });
+        if(!comments){
+            return res.status(404).json("Not Found");
         }
-        else{
-            return res.status(401).json({msg:"Unauthorized"});
-        }   
+        return res.status(200).json(comments);  
     } catch (error) {
         return res.status(500).json("Server Error!");
     }
 });
 
 //Post the new comment 
-router.post('/:newsId/:userId',async (req,res)=>{
+router.post('/:newsId/:userId',verfiy,async (req,res)=>{
     try {
-        if(req.body.newsId === req.params.newsId && 
-            req.body.userId === req.params.userId){
+        if(req.body.user){
 
             let newComment;
 
@@ -60,9 +55,9 @@ router.post('/:newsId/:userId',async (req,res)=>{
 });
 
 //Delete news comment
-router.delete('/:newsId/:commentId',(req,res)=>{
+router.delete('/:newsId/:commentId',verfiy,(req,res)=>{
     try {
-        if(req.body.newsId === req.params.newsId && req.body.commentId === req.params.commentId){
+        if(req.body.user){
              User.findById(req.body.userId)
             .then((user)=>{
                 if(user){
