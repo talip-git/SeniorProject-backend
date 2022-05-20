@@ -1,5 +1,6 @@
 const express = require('express');
 const ForumComments = require('../models/ForumComments');
+const verfiy = require('../middlewares/verify');
 const router = express.Router();
 
 router.get('/getAll/:forumId',async(req,res)=>{
@@ -49,14 +50,14 @@ router.get('/:forumId/:parentCommentId',async(req,res)=>{
     }
 })
 //Post forum comment
-router.post('/:forumId/:userId',async (req,res)=>{
+router.post('/:forumId/:userId',verfiy,async (req,res)=>{
     try {
-        if(req.body.forumId === req.params.forumId && 
-            req.body.userId === req.params.userId){
+        if(req.body.user){
             if(req.body.parentCommentId){
                 const newcomment = new ForumComments({
                     forumId:req.body.forumId,
                     userId : req.body.userId,
+                    userName:req.body.username,
                     parentCommentId:req.body.parentCommentId,
                     content:req.body.content
                 });
@@ -66,7 +67,8 @@ router.post('/:forumId/:userId',async (req,res)=>{
             else{
                 const newcomment = new ForumComments({
                     forumId:req.body.forumId,
-                    userId : req.body.userId,
+                    userId :req.body.userId,
+                    userName:req.body.username,
                     content:req.body.content
                 })
                 await newcomment.save();

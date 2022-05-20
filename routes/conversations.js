@@ -6,9 +6,10 @@ router.post('/',async (req,res)=>{
     const conversation = new Conversation({
         members:[req.body.senderId,req.body.recieverId]
     });
+    console.log(conversation)
     try {
-        await conversation.save();
-        return res.status(200).json(conversation);
+        const c = await conversation.save();
+        return res.status(200).json(c);
     } catch (error) {
         return res.status(500).json(error)
     }
