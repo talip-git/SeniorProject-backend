@@ -22,6 +22,18 @@ const UserSchema = mongoose.Schema({
     isAdmin:{
         type:Boolean,
         default:false,
+    },
+    destination:{
+        type:String,
+        required:false
+    },
+    age:{
+        type:String,
+        required:false
+    },
+    phonenumber:{
+        type:String,
+        required:false
     }
 },{timestamps:true});
 

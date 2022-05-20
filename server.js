@@ -49,12 +49,7 @@ app.use("/api/messages", messageRouter);
 app.use("/api/comments/news", newsCommentsRouter);
 app.use("/api/comments/forum", forumCommentsRouter);
 
-//TODO FUNCTIONS
-app.post("/api/changeUsername");
-app.post("/api/changeAge");
-app.post("/api/changeDestination");
-app.post("/api/changeNumber");
-app.post("/api/changeEmail");
+
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {

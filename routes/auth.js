@@ -126,4 +126,114 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//TODO FUNCTIONS
+router.post("/getUserCredentials",async(req,res)=>{
+  try{
+    console.log("BARTU",req.body.username)
+    const user = User.findOne({username:req.body.username},function(err,doc){
+      if(err) throw err;
+      if(doc){
+        console.log(doc)
+        console.log("Found: "+doc.username)
+        return res.status(200).send({
+          username: doc.username,
+          email: doc.email,
+          password: doc.password,
+          isAdmin: doc.isAdmin,
+          destination:doc.destination,
+          phonenumber:doc.phonenumber,
+          age:doc.age
+        });
+      }
+      else
+          console.log("Not found: "+req.body.username);
+   
+  });
+    
+  }
+  catch{
+    return res.status(500).send("User not found !");
+  }
+})
+router.post("/changeUserCredentials",async(req,res)=>{
+try{
+  console.log("Username",req.body.username)
+  console.log("New Username",req.body.newusername)
+  console.log("New Email",req.body.newEmail);
+  console.log("New Destination",req.body.newdestination)
+ const user=User.findOneAndUpdate({id:req.body.id},{$set: {
+    username:req.body.newusername,
+    age:req.body.newage,
+    destination:req.body.newdestination,
+    phonenumber: req.body.newphonenumber,
+    email:req.body.newemail
+  }}).then(res.status(200).json("OK"))
+  
+  
+
+  if(!user){
+    return res.status(404).json("User not found!");
+  }
+  
+  
+}
+catch(error){
+  console.log(error)
+  return res.status(500).json(error);
+}
+});
+
+router.post("/changeEmail",async(req,res)=>{
+  try{
+    
+   const user=User.findOneAndUpdate({username:req.body.username},{$set: {
+      email: req.body.newemail,
+    }}).then(res.status(200).json("OK"));
+  
+    if(!user){
+      return res.status(404).json("User not found!");
+    }
+    
+    
+  }
+  catch(error){
+    console.log(error)
+    return res.status(500).json(error);
+  }
+  });
+
+  router.post("/changePassword",async(req,res)=>{
+    try{
+      console.log(req.body.password);
+      console.log(req.body.newpassword)
+      let user = await User.findOne({
+        username: req.body.username,
+      });
+      if(!user){
+        res.status(404).json("User not found !")
+      }
+      // var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+      // if (!passwordIsValid) {
+      //   return res.status(401).send({
+      //     message: "Invalid Password!",
+      //   });
+      // }
+      if (user.password === req.body.password) {
+        user = User.findOneAndUpdate({username:req.body.username},{$set:{
+          password:req.body.newpassword
+        }})
+        return res.status(200).send("OK");
+      }
+      else{
+        res.status(401).send("Failed! Password is incorrect" );
+      }
+      
+
+    }
+  catch(error){
+    return res.status(500).json(error)
+  }
+  
+  })
+
 module.exports = router;
