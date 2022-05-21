@@ -51,6 +51,17 @@ router.post("/addForum/:userId",verify,async(req,res)=>{
         return res.status(500).json(error);
     }
 });
-
+router.get('/getRandom',async (req,res)=>{
+    try {
+        const randomforums = await ForumEntry.aggregate([
+            {
+                $sample:{size:3}
+            }
+        ])
+       return res.status(200).json(randomforums);
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
 module.exports = router;
 

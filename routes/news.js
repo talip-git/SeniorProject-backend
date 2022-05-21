@@ -38,4 +38,16 @@ router.get('/induvidualNews/:title',async (req,res)=>{
         return res.status(500).json(error)
     }
 })
+router.get('/getRandom',async (req,res)=>{
+    try {
+        const randomNews = await News.aggregate([
+            {
+                $sample:{size:3}
+            }
+        ])
+       return res.status(200).json(randomNews);
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
 module.exports = router;
