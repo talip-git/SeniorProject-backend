@@ -14,6 +14,8 @@ const authRouter = require('./routes/auth');
 const conversationRouter = require('./routes/conversations');
 const messageRouter = require('./routes/messages');
 const userRouter = require('./routes/users')
+const feedRouter  =require('./routes/feeds');
+const feedCommentsRouter = require('./routes/feedComments');
 const app = express();
 
 //Connect To The DB
@@ -39,10 +41,12 @@ app.use(morgan("dev"))
 app.use('/api/auth',authRouter);
 app.use('/api/news',newsRouter);
 app.use('/api/forum',forumEntriesRouter);
+app.use('/api/feed',feedRouter);
 app.use('/api/conversations',conversationRouter);
 app.use('/api/messages',messageRouter);
 app.use('/api/comments/news',newsCommentsRouter);
 app.use('/api/comments/forum',forumCommentsRouter);
+app.use('/api/comments/feed',feedCommentsRouter);
 app.use('/api/users',userRouter)
 /**
  * Token Test
