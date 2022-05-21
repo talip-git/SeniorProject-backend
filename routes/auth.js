@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 const express = require("express");
 const User = require("../models/User");
-=======
-const express = require('express');
-const {createToken} = require('../security/crypto');
-const User = require('../models/User');
->>>>>>> 95addf601100b65ab8ab32ba6842bfcd8bbc74e9
 const router = express.Router();
 var bcrypt = require("bcryptjs");
 const config = require("../config/auth.config");
@@ -61,7 +55,6 @@ function verifyToken(req, res, next) {
   });
 }
 
-<<<<<<< HEAD
 router.get("/", async (req, res) => {
   try {
     const user = await User.findById(req.body.userId);
@@ -126,38 +119,6 @@ router.post("/login", async (req, res) => {
           username: user.username,
           accessToken: token,
         });
-=======
-router.post('/register',async(req,res)=>{
-    try {
-        const user = new User({
-            username:req.body.username,
-            email:req.body.email,
-            password:req.body.password
-        })
-        await user.save();
-        return res.status(200).json(user.username);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-})
-router.post('/login',async(req,res)=>{
-    try {
-        const user = await User.findOne({
-            email:req.body.email,
-            password:req.body.password
-        })
-        if(!user){
-            return res.status(404).json("User not found!");
-        }
-        if(user.password === req.body.password){
-            const auth = createToken(user);
-            const {_id,username} = user;
-            return res.status(200).json({_id,username,auth});
-        }
-        return res.status(401).json("Unauthorized!");
-    } catch (error) {
-        return res.status(500).json(error);
->>>>>>> 95addf601100b65ab8ab32ba6842bfcd8bbc74e9
     }
     return res.status(401).json("Unauthorized!");
   } catch (error) {

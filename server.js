@@ -12,16 +12,10 @@ const forumEntriesRouter = require("./routes/forumEntries");
 const forumCommentsRouter = require("./routes/forumComments");
 const newsRouter = require("./routes/news");
 const newsCommentsRouter = require("./routes/newsComments");
-<<<<<<< HEAD
-const authRouter = require("./routes/auth");
-const conversationRouter = require("./routes/conversations");
-const messageRouter = require("./routes/messages");
-=======
 const authRouter = require('./routes/auth');
 const conversationRouter = require('./routes/conversations');
 const messageRouter = require('./routes/messages');
 const userRouter = require('./routes/users')
->>>>>>> 95addf601100b65ab8ab32ba6842bfcd8bbc74e9
 const app = express();
 
 //Connect To The DB
@@ -30,7 +24,7 @@ mongoose
     "mongodb+srv://sinoposta:12345@cluster0.gjxb8.mongodb.net/PredatorDatabase?retryWrites=true&w=majority"
   )
   .then(() => {
-    initial();
+   
     console.log("Connected to the db!");
   })
   .catch(() => {
@@ -44,56 +38,6 @@ const corsOptions = {
 };
 
 //Middleware
-<<<<<<< HEAD
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(helmet());
-app.use(morgan("dev"));
-app.use("/api/auth", authRouter);
-app.use("/api/news", newsRouter);
-app.use("/api/forum", forumEntriesRouter);
-app.use("/api/conversations", conversationRouter);
-app.use("/api/messages", messageRouter);
-app.use("/api/comments/news", newsCommentsRouter);
-app.use("/api/comments/forum", forumCommentsRouter);
-
-
-
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      new Role({
-        name: "user",
-      }).save((err) => {
-        if (err) {
-          console.log("error", err);
-        }
-        console.log("added 'user' to roles collection");
-      });
-      new Role({
-        name: "moderator",
-      }).save((err) => {
-        if (err) {
-          console.log("error", err);
-        }
-        console.log("added 'moderator' to roles collection");
-      });
-      new Role({
-        name: "admin",
-      }).save((err) => {
-        if (err) {
-          console.log("error", err);
-        }
-        console.log("added 'admin' to roles collection");
-      });
-    }
-  });
-}
-
-app.listen(5000, () => {
-  console.log("Server is runnig on port " + 5000 + "...");
-});
-=======
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(helmet())
@@ -125,7 +69,6 @@ app.use('/api/users',userRouter)
 //     return res.status(403).json("Unauthorized!");
 // })
 
-app.listen(process.env.PORT,()=>{
-    console.log('Server is runnig on port '+ process.env.PORT+'...')
+app.listen(5000,()=>{
+    console.log('Server is runnig on port '+ 5000+'...')
 })
->>>>>>> 95addf601100b65ab8ab32ba6842bfcd8bbc74e9
